@@ -14,6 +14,11 @@ public class floatdata : MonoBehaviour
             value += num;
         }
 
+        public void ResetValue(float num)
+        {
+            value = num;
+        }
+
     }
     
 }

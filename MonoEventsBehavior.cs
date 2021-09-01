@@ -5,9 +5,14 @@ using UnityEngine.Events;
 
 public class MonoEventsBehavior : MonoBehaviour
 {
-    public UnityEvent startEvent;
+    public UnityEvent startEvent, destroyEvent;
     void Start()
     {
         startEvent.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        destroyEvent.Invoke();
     }
 }
