@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerControls : MonoBehaviour
 {
+    [SerializeField] private GameObject Player;
  
    private bool moveLeft;
    private bool moveRight;
    private float horizontalMove;
-   public float speed = 5;
-   public float horizontalInput;
-   public float xRange = 60.0f;
+   private float speed = 3;
+   private float horizontalInput;
+   private float xRange = 60.0f;
 
    void start()
     {
@@ -18,27 +20,17 @@ public class PlayerControls : MonoBehaviour
         moveRight = false;
     }
   
-    //Pressing left button
-   public void PointerDownLeft()
-   {
-       moveLeft = true;
-   }
+  public void leftButton()
+  {
+      moveLeft = true;
+      moveRight = false;
+  }
 
-    //not pressing left button
-   public void PointerUpLeft()
-   {
-       moveLeft = false;
-   }
-
-   public void PointerDownRight()
-   {
-       moveRight = true;
-   }
-
-   public void PointerUpRight()
-   {
-       moveRight = false;
-   }
+  public void rightButton()
+  {
+      moveLeft = false;
+      moveRight = true;
+  }
 
    void Update()
    {
@@ -58,6 +50,8 @@ public class PlayerControls : MonoBehaviour
     //lets player move
    private void MovementPlayer()
    {
+       FixedUpdate();
+
        //if press left button
        if (moveLeft)
        {
@@ -73,10 +67,8 @@ public class PlayerControls : MonoBehaviour
        {
            horizontalMove = 0;
        }
-
-       FixedUpdate();
    }
-
+    
     //add movement force to player
    private void FixedUpdate()
    {
