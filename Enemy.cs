@@ -6,7 +6,12 @@ public class Enemy : MonoBehaviour
 {
     public float speed = 40.0f;
     private float topBound = -75;
+    private GameObject restartGame;
 
+    void Start()
+    {
+        restartGame = GameObject.Find("RestartButton");
+    }
 
     void Update()
     {
