@@ -6,17 +6,30 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
+  [SerializeField] private GameObject myPlayer;
   public GameObject bullet;
+  public GameObject player1;
   public GameObject restartButton;
   public TextMeshProUGUI GameOverText;
   private float topBound = 25;
   private float lowerBound = -70;
   private float speed = 40.0f;
 
+  void Start()
+  {
+   
+  }
+  
+
   public void PointerDown()
   {
     //bullet shoot
      Instantiate(bullet, transform.position, bullet.transform.rotation);
+  }
+
+  public void activePlayer()
+  {
+    myPlayer.SetActive(true);
   }
 
   void OnCollisionEnter(Collision collision)
@@ -25,6 +38,7 @@ public class Player : MonoBehaviour
     {
       restartButton.SetActive(true);
       GameOverText.gameObject.SetActive(true);
+      Destroy(gameObject);
     }
   }
 }

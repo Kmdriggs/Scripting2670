@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerControls : MonoBehaviour
 {
-    [SerializeField] private GameObject Player;
- 
    private bool moveLeft;
    private bool moveRight;
    private float horizontalMove;
    private float speed = 3;
    private float horizontalInput;
    private float xRange = 60.0f;
+   public GameObject particleSystemObject;
+   CharacterController controller;
 
    void start()
     {
+        controller = GetComponent<CharacterController>();
+        controller.center = new Vector3(0,1, 0);
         moveLeft = false;
         moveRight = false;
     }
@@ -23,13 +24,19 @@ public class PlayerControls : MonoBehaviour
   public void leftButton()
   {
       moveLeft = true;
-      moveRight = false;
+  
   }
 
   public void rightButton()
   {
       moveLeft = false;
       moveRight = true;
+  }
+
+  public void pointerUp()
+  {
+      moveLeft = false;
+      moveRight = false;
   }
 
    void Update()

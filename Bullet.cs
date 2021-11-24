@@ -5,56 +5,31 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 40.0f;
-    private float topBound = 25;
-    private float lowerBound = -70;
-    public float verticalMove;
-    public bool moveBullet;
+    private float topBound = 30;
+    public ScoreManager scoreManager;
 
     void Start()
     {
-        moveBullet = false;
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
     }
-
-    public void PointerDown()
-    {
-        moveBullet = true;
-    }
-
-    public void PointerUp()
-    {
-        moveBullet = false;
-    }
-
+  
     void Update()
     {
-       // bulletMovement();
-        FixedUpdate();
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
 
-         //destroy bullet off screen or when hitting object
         if (transform.position.z > topBound)
         {
             Destroy(gameObject);
         }
-        else if (transform.position.z < lowerBound)
-        {
-            Destroy(gameObject);
-        }
     }
 
-    private void bulletMovement()
+    void OnCollisionEnter (Collision collision)
     {
-        if (moveBullet)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            verticalMove = speed;
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+            scoreManager.UpdateScore(1);
         }
-        else
-        {
-            verticalMove = 0;
-        }
-    }
-   
-    private void FixedUpdate()
-    {
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 }
